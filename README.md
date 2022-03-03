@@ -11,5 +11,5 @@ El proyecto consiste en un coche que se maneja a distancia desde un móvil /orde
 
 ## Objetivos del trabajo
 
-- Utilizar herramientas
+- Utilizar herramientas de programación como visual studio y arduino para aprender a utilizar sensores de luz y proximidad para 
 
