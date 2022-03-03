@@ -5,9 +5,9 @@ El proyecto consiste en un coche que se maneja a distancia desde un móvil /orde
 
 ## Integrantes del equipo
 
-Julia Magallares Verde        Usuario: juliamagallares
-Beatrice Mangiameli           Usuario: bitrix2003
-David Oeo Muñoz               Usuario: DavidOM23
+Julia Magallares Verde        Usuario: juliamagallares \n
+Beatrice Mangiameli           Usuario: bitrix2003\n
+David Oeo Muñoz               Usuario: DavidOM23\n
 
 ## Objetivos del trabajo
 
