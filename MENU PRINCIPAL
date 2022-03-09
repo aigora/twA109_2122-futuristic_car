@@ -1,0 +1,80 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<locale.h>
+
+
+int main(void)
+{
+	int a, opcion, opcion_1;
+	float vel, vel_media, temp, temp_media, dist;
+	char luz;
+	setlocale(LC_ALL, "es-ES");
+	printf("MENU PRINCIPAL:\n Seleccione la opcion que quieres saber:\n 1.Saber la velocidad del coche a lo largo del camino\n2.Saber la velocidad media del coche a lo largo del camino\n 3.Saber la temperatura ambiente fuera del coche\n 4.Saber la temperatura media a lo largo del camino:\n 5.Saber la distancia del coche al objeto mas cercano.\n 6.Encender las luces del coche\n 7.Abrir o cerrar puertas del coche.\n");
+	scanf_s("%d",&a);
+	if (a == 1)
+	{
+		vel = 2;
+		printf("la velocidad es %f km/h",vel);
+	}
+	
+	else if (a == 2)
+	{
+		vel_media = 2, 5;
+		printf("la velocida media es %f km/h",vel_media);
+		
+	}
+	else if (a == 3)
+	{
+		temp = 25;
+		printf("la temperatura es %f ºC",temp);
+		
+	}
+	else if (a == 4)
+	{
+		temp_media = 30;
+		printf("la temperatura media es %f ºC",temp_media);
+	}
+	else if (a == 5)
+	{
+		dist = 2;
+		printf("la distancia al objeto es %f metros",dist);
+	}
+	else if (a == 6)
+	{
+		printf("¿que luz quieres encender?\n");
+		printf("1.luz de largo alcance\n");
+		printf("2.luz de corto alcance\n");
+		printf("3.luz de forma automatica\n");
+		scanf_s("%d", &opcion);
+		switch (opcion)
+		{
+		case 1:
+			printf("1.encendiendo luz de largo alcance\n");
+			break;
+		case 2:
+			printf("2.encendiendo luz de corte alcance\n");
+			break;
+		case 3:
+			printf("3.encendiendo luz automatica\n");
+			break;
+		}
+	}
+	else if (a == 7)
+	{
+		printf("¿quieres abrir o cerrar coche?\n");
+		printf("1.abrir coche\n");
+		printf("2.cerrar coche\n");
+		scanf_s("%d",&opcion_1);
+		switch (opcion_1) 
+		{
+		case 1:
+			printf("esta abriendo el coche");
+			break;
+
+		case 2:
+			printf("se esta cerrando el coche");
+			break;
+		}
+	}
+	return 0;
+}
