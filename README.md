@@ -14,3 +14,9 @@ El proyecto consiste en un coche que se maneja a distancia desde un móvil /orde
 - Utilizar herramientas de programación como visual studio y arduino para aprender a utilizar sensores de luz y proximidad para 
 
 ## Explicación de sensores
+
+- Sensor de Ultra sonidos:
+ La función principal del sensor de ultrasonidos en el proyecto será la de detectar objetos y paredes a cierta proximidad de la parte trasera del vehículo, haciendo que se vayan recogiendo datos de distancia y llegada a una marca establecida en el programa este mande la orden de parar para evitar que colisionen. 
+Esto se llevará a cabo gracias a que con el funcionamiento del sensor este irá emitiendo una señal sonora de entre 2 y 400 cm que al rebotar con el objeto o pared en cuestión será reflejada y captada por el mismo, calculando el tiempo de ida y vuelta para devolver una distancia. Sabiendo que aproximadamente la velocidad de la señal sonora es de 343m/s
+Puesto que el sonido en ciertos casos se disipa y no tiende a funcionar tan bien el sensor no llega a ser tan preciso, es por esto que su funcionalidad estará basada en los sistemas de alarma de aparcado de los coches, tomando varias veces medidas que darán un aviso importante cuando estas sean ya muy pequeñas.
+Código de ejemplo:
