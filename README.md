@@ -13,3 +13,4 @@ El proyecto consiste en un coche que se maneja a distancia desde un móvil /orde
 
 - Utilizar herramientas de programación como visual studio y arduino para aprender a utilizar sensores de luz y proximidad para 
 
+## Explicación de sensores
