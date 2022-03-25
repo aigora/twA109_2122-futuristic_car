@@ -17,9 +17,28 @@ El proyecto consiste en un coche que se maneja a distancia desde un móvil /orde
 
 #### Sensor de Ultra sonidos:
  La función principal del sensor de ultrasonidos en el proyecto será la de detectar objetos y paredes a cierta proximidad de la parte trasera del vehículo, haciendo que se vayan recogiendo datos de distancia y llegada a una marca establecida en el programa este mande la orden de parar para evitar que colisionen. 
-Esto se llevará a cabo gracias a que con el funcionamiento del sensor este irá emitiendo una señal sonora de entre 2 y 400 cm que al rebotar con el objeto o pared en cuestión será reflejada y captada por el mismo, calculando el tiempo de ida y vuelta para devolver una distancia. Sabiendo que aproximadamente la velocidad de la señal sonora es de 343m/s
+Esto se llevará a cabo gracias a que con el funcionamiento del sensor este irá emitiendo una señal sonora de entre 2 y 400 cm que al rebotar con el objeto o pared en cuestión será reflejada y captada por el mismo, calculando el tiempo de ida y vuelta para devolver una distancia. Sabiendo que aproximadamente la velocidad de la señal sonora es de 343m/s.
+
 Puesto que el sonido en ciertos casos se disipa y no tiende a funcionar tan bien el sensor no llega a ser tan preciso, es por esto que su funcionalidad estará basada en los sistemas de alarma de aparcado de los coches, tomando varias veces medidas que darán un aviso importante cuando estas sean ya muy pequeñas.
 Código de ejemplo:
+
+<br />const int EchoPin = 5;
+<br />const int TriggerPin = 6:
+<br />const int LedPin - 13;
+<br />void setup() {
+<br />Serial.begin (9600);
+<br />pinMode(LedPin, OUTPUT); pinMode (TriggerPin, OUTPUT); pinMode (EchoPin, INPUT);
+<br />void loop() {
+<br />int cm ping (TriggerPin, Echo Pin); Serial.print ("Distancia: "); Serial.println (cm): delay(1000);
+<br />int ping(int TriggerPin, int EchoPin) (
+<br />long duration, distanceCm;
+<br />digitalWrite(Trigger Pin, LOW); //para generar un pulao limpio ponemos a LOW dus
+<br />delayMicroseconds (4);
+<br />digitalWrite(TriggerPin, HIGH); //generamos Trigger (disparo) de 10us
+<br />delayMicroseconds (10); digitalWrite(TriggerPin, LOW);
+<br />duration pulseln (EchoPin, HIGH): //medimos el tiempo entre pulsca, en microsegundos
+<br />distanceC duration 10/292/ 2: //convertimos a distancia, en ca
+<br />return distanceCm;
 
 
 
@@ -108,5 +127,80 @@ void loop(){
 <br />  digitalWrite(ledPIN , LOW);    <br />// poner el Pin en LOW
 <br />  delay(1000);                   <br />// esperar un segundo
 }
+
+#### Sensor de infrarrojos
+
+A diferencia del sensor de ultrasonidos, el sensor de infrarrojos es algo más preciso en ciertos aspectos, ya que al funcionar con señales de luz, estas no se dispersan ni son fáciles de hacer desaparecer, pero tiene el inconveniente de tener un menor rango de actuación.
+Por todo esto, la finalidad del sensor de infrarrojos será la de detectar cuerpos que se interpongan en el camino del vehículo y así parar en seco para no chocar, simulando los sistemas que tienen algunos coches para no colisionar con peatones.
+La señal que mandará al programa será simplemente si hay un cuerpo delante o no, para luego ordenar a los motores que paren.
+Código de ejemplo:
+
+<br />include <IRremote.h>
+<br />const int irReceiverPin -7; //the SIG of receiver module attach to pin7 onst int ledPin= 13;//pin 13 built-in led Rrecv irrecv(irReceiverPin); //Creates a variable of type IRrecv
+<br />ecode_results results; oid setup()
+<br />pinMode(ledPin, OUTPUT); //set ledpin as OUTPUT
+<br />Serial.begin(9600);//initialize serial
+<br />irrecv.enableIRInO); //enable ir receiver module
+<br />void loopO
+<br />if (irrecv.decode(&results)) //if the ir receiver module receiver data
+<br />{
+<br />Serial.print("irCode: "); //print "irCode: Serial.print(results.value, HEX); //print the value in hexdecimal
+<br />Serial.print(", bits: "); //print", bits: " Serial.println(results.bits); //print the bits irrecv.resume(); /Receive the next value
+<br />} delay(600); //delay 600ms
+<br />if(results.value= 0xFFA25D)//if receiver module receive OxFFAZSD
+<br />digitalWrite(ledPin,HIGH);//turn on the led
+<br />} else
+<br />{ digitalWrite(ledPin, LOW)://turn off the led
+<br />}
+<br />tetch uses 6754 bytes (26) of ornaram storage space Maximum is 32256 bytes obal vortables use 426 bytes (20%) of dynamic menory, leaving
+<br />1622 bytes for lo
+<br />3:50/8:57 Arduino program >
+
+#### Sensor de temperatura
+
+El sensor de temperatura tendrá el trabajo de ir recopilando diversas temperaturas a lo largo del tiempo para después calcular una temperatura media.
+Este sensor funciona gracias a un componente sensible a la humedad, un termistor y un circuito integrado. Puesto que lo que nos interesa es cómo detecta la temperatura, nos centraremos en el funcionamiento de esta parte, la cual es el termistor, el que en realidad es un resistor variable, lo cual se resume en una resistencia cuya capacidad disminuye a medida que aumenta su temperatura (en nuestro caso la temperatura del exterior) y da el valor de esta.
+Código de ejemplo:
+
+<br />#include <dht.h>
+<br />#define dataPin 8
+<br />dht DHT;
+<br />void setup() 
+<br />{
+<br /> Serial.begin(9600);
+<br />}
+<br />void loop() 
+<br />int readData = DHT.read22(dataPin); 
+<br /> float t = DHT.temperature;
+<br /> float h = DHT.humidity;
+<br /> Serial.print("Temperature = ");
+<br /> Serial.print(t);
+<br /> Serial.print(" *C ");
+<br /> Serial.print("    Humidity = ");
+<br /> Serial.print(h);
+<br /> Serial.println(" % ");
+<br /> delay(2000);
+<br />}
+
+#### Motores
+
+Estos funcionan gracias al alineamiento de dos campos magnéticos generados por un estator o parte fija del motor que con el suyo hace girar una espira con el otro campo generando así la rotación.
+Los motores simplemente tendrán la función de mover el vehículo para darle sensación de realismo y complementar las funcionalidades de algunos de los otros sensores como el de ultrasonidos o el de infrarrojos. También haremos un cálculo de la velocidad media con datos recopilados por las revoluciones por segundo que estos motores den.
+Código de ejemplo:
+
+<br />int motorPin = 9;
+<br />void setup() {
+<br />pinMode(motorPin, OUTPUT);
+<br />Serial.begin(9600);
+<br />while (! Serial);
+<br />Serial.println("Speed 0 to 255");
+<br />}
+<br />void loop() {
+<br />if (Serial.available()) {
+<br />int speed = Serial.parseInt();
+<br />if (speed >= 0 && speed <= 255) {
+<br />analogWrite(motorPin, speed);}}}
+
+
 
 
