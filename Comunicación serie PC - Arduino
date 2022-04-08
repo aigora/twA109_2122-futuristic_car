@@ -64,7 +64,146 @@ return;
 ## Sensor de ultrasonidos ##
 
 //Código para el arduino:
+enum Estados {MODO_MANUAL, MODO_ALARMA_ON,MODO_ALARMA_OFF};
+Estados estado=MODO_MANUAL;
+const int LedPin = 4;
+const int EchoPin = 5;
+const int TriggerPin = 6;
+String mensaje_entrada;
+String mensaje_salida;
 
+void setup() {
+   Serial.begin(9600);
+   pinMode(TriggerPin, OUTPUT);
+   pinMode(EchoPin, INPUT);
+   pinMode(LedPin, OUTPUT);
+}
+
+void loop ()
+{
+  procesar_mensajes();
+  switch (estado)
+  {
+    case MODO_MANUAL:
+        break;
+    case MODO_ALARMA_ON:
+        modo_alarma(5.0,15.0,2000,3000,1);
+        break;
+    case MODO_ALARMA_OFF:
+        modo_alarma(5.0,15.0,2000,3000,0);
+        estado=MODO_MANUAL;
+        break;
+  }
+}
+
+void procesar_mensajes(void)
+{
+  if( Serial.available()> 0) 
+  {
+    mensaje_entrada = Serial.readStringUntil('\n');
+    if (mensaje_entrada.compareTo("GET_DISTANCIA")==0)
+    {
+      float cm = ping(TriggerPin, EchoPin);
+      mensaje_salida=String("DISTANCIA="+String(cm,3));
+    }
+    else
+      if (mensaje_entrada.compareTo("SET_MODO_ALARMA")==0)
+      {
+        if (estado==MODO_ALARMA_OFF || estado==MODO_MANUAL)
+        {
+            estado=MODO_ALARMA_ON;
+            mensaje_salida=String("ALARMA_OPERATIVA");
+        }
+        else
+        {
+          estado=MODO_ALARMA_OFF;
+          mensaje_salida=String("ALARMA_INACTIVA");
+         }
+      }
+      else
+        mensaje_salida="COMANDO DESCONOCIDO";
+
+    Serial.println(mensaje_salida);
+  }
+}
+
+float ping(int TriggerPin, int EchoPin)
+ {
+   long duration, distanceCm;
+   
+   digitalWrite(TriggerPin, LOW);  //para generar un pulso limpio ponemos a LOW 4us
+   delayMicroseconds(4);
+   digitalWrite(TriggerPin, HIGH);  //generamos Trigger (disparo) de 10us
+   delayMicroseconds(10);
+   digitalWrite(TriggerPin, LOW);
+   
+   duration = pulseIn(EchoPin, HIGH);  //medimos el tiempo entre pulsos, en microsegundos
+   
+   distanceCm = duration * 10 / 292/ 2;   //convertimos a distancia, en cm
+   return distanceCm;
+}
+
+
+void modo_alarma(float dist_minima, float distancia_maxima,int ms_obstaculo,int ms_led,int modo)
+{
+  static int  estado_alarma=0; // Estado actual
+  static unsigned long  tiempo_alarma=0; // Ref. de tiempo alarma
+  static unsigned long tiempo_led_on=0; // Ref. de tiempo led on
+  float cm=0.0; // Distancia captada
+  int i,rango; 
+
+  if (modo==0)
+  {
+    estado_alarma=0;
+    digitalWrite(LedPin,LOW);
+  }
+  else
+  {
+    for (i=0;i<5;i++)  // La medida captada será la media aritmética de cinco sondeos.
+      cm += ping(TriggerPin, EchoPin);
+    cm=cm/5;
+    rango = (cm>=dist_minima && cm<=distancia_maxima) ? 1:0;  // ¿Hay obstáculo en el rango?
+    switch (estado_alarma)
+     {
+       case 0: // Estado inicial
+         if (rango==1) // Si detecta un obstáculo
+         {
+           tiempo_alarma=millis(); // Referencia temporal
+           estado_alarma=1; // Cambia al estado 1
+         }
+         break;
+       case 1: // Se acaba de detectar recientemente un obstáculo
+         if (millis()-tiempo_alarma>ms_obstaculo) // Si el obstáculo ha permanecido el tiempo mínimo requerido
+         {
+           estado_alarma=2; // Cambio de estado
+           digitalWrite(LedPin,HIGH); // Activa el led de alarma
+           Serial.println("ATENCION: SE ACABA DE DETECTAR UN OBSTACULO");
+         }
+         else
+         if (rango==0)  // El obstáculo no ha permanecido el tiempo mínimo
+           estado_alarma=0;  // 
+        break;
+       case 2: // Alarma activa
+         if (rango==0)  // Si el obstáculo desaparece del rango
+         {
+           tiempo_led_on=millis(); // Inicia temporización para mantener el led 
+           estado_alarma=3; // Cambio de estado
+         }
+         break;
+       case 3: // No hay obstáculo pero el led continua encendio
+         if (millis()-tiempo_led_on>ms_led) // Si ha pasado el tiempo del led on
+         {
+           digitalWrite(LedPin,LOW); //Apaga led
+           estado_alarma=0; //Regresa a estado inicial
+           Serial.println("ATENCION:EL OBSTACULO DETECTADO YA NO ESTA PRESENTE");           
+         }
+         else
+          if (rango==1) // Si vuelve a detectar obstáculo
+            estado_alarma=2; // Regresa a estado 2
+     }
+  }
+}
+ 
  //Código para Visual Studio:
 #include <stdio.h>
 #include <stdlib.h>
