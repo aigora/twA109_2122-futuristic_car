@@ -172,7 +172,7 @@ Código de ejemplo:
 El sensor de temperatura tendrá el trabajo de ir recopilando diversas temperaturas a lo largo del tiempo para después calcular una temperatura media.
 Este sensor funciona gracias a un componente sensible a la humedad, un termistor y un circuito integrado. Puesto que lo que nos interesa es cómo detecta la temperatura, nos centraremos en el funcionamiento de esta parte, la cual es el termistor, el que en realidad es un resistor variable, lo cual se resume en una resistencia cuya capacidad disminuye a medida que aumenta su temperatura (en nuestro caso la temperatura del exterior) y da el valor de esta.
 
-El modelo de temperatura que utilizaremos será el DHT11.
+El modelo de temperatura que utilizaremos será el DHT22.
 
 Código de ejemplo:
 
