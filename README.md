@@ -20,6 +20,9 @@ El proyecto consiste en un coche que se maneja a distancia desde un móvil /orde
 Esto se llevará a cabo gracias a que con el funcionamiento del sensor este irá emitiendo una señal sonora de entre 2 y 400 cm que al rebotar con el objeto o pared en cuestión será reflejada y captada por el mismo, calculando el tiempo de ida y vuelta para devolver una distancia. Sabiendo que aproximadamente la velocidad de la señal sonora es de 343m/s.
 
 Puesto que el sonido en ciertos casos se disipa y no tiende a funcionar tan bien el sensor no llega a ser tan preciso, es por esto que su funcionalidad estará basada en los sistemas de alarma de aparcado de los coches, tomando varias veces medidas que darán un aviso importante cuando estas sean ya muy pequeñas.
+
+El modelo que utilizaremos será el HC-SR04.
+
 Código de ejemplo:
 
 <br />const int EchoPin = 5;
@@ -88,6 +91,8 @@ Los fotorresistores es un componente electrónico cuya resistencia se modifica, 
 Porque es capaz de cambiar su conductividad puede detectar la luz que hay a su alrededor y obtener la intensidad de esta.  
 Por lo tanto podemos utilizar este sensor para detectar la luz que hay alrededor de nuestro motor para así dar una intensidad menor o mayor al led que utilizaremos para contrarrestar la luz que falte. 
 
+Utilizaremos el modelo de LDR de la familia GL55.
+
 El código para el fotorresistor será:
 //Creamos una variable de tipo entero
 <br />int lectura = 0;
@@ -112,6 +117,9 @@ void loop() {
 
 Una luz LED es un diodo, es decir, que trasvasa electrones entre dos materiales semiconductores (pareja positivo-negativo), produciendo así un voltaje entre la pareja, dando un flujo de partículas desde cada uno de los semiconductores al otro. Así es como el LED produce la luz.
 En nuestro proyecto vamos a utilizar los LEDs para iluminar por donde pasará el coche y también, si hay falta de luz (esta falta la indicará el fotoresistor), podría incrementar su intensidad de luz haciendo así más visible el camino.
+
+Utilizaremos los diodos leds.
+
 El código que utilizaremos será:
 
 const int ledPIN = 9;
@@ -133,6 +141,9 @@ void loop(){
 A diferencia del sensor de ultrasonidos, el sensor de infrarrojos es algo más preciso en ciertos aspectos, ya que al funcionar con señales de luz, estas no se dispersan ni son fáciles de hacer desaparecer, pero tiene el inconveniente de tener un menor rango de actuación.
 Por todo esto, la finalidad del sensor de infrarrojos será la de detectar cuerpos que se interpongan en el camino del vehículo y así parar en seco para no chocar, simulando los sistemas que tienen algunos coches para no colisionar con peatones.
 La señal que mandará al programa será simplemente si hay un cuerpo delante o no, para luego ordenar a los motores que paren.
+
+El modelo que utilizaremos será el IR Recever Module.
+
 Código de ejemplo:
 
 <br />include <IRremote.h>
@@ -160,6 +171,9 @@ Código de ejemplo:
 
 El sensor de temperatura tendrá el trabajo de ir recopilando diversas temperaturas a lo largo del tiempo para después calcular una temperatura media.
 Este sensor funciona gracias a un componente sensible a la humedad, un termistor y un circuito integrado. Puesto que lo que nos interesa es cómo detecta la temperatura, nos centraremos en el funcionamiento de esta parte, la cual es el termistor, el que en realidad es un resistor variable, lo cual se resume en una resistencia cuya capacidad disminuye a medida que aumenta su temperatura (en nuestro caso la temperatura del exterior) y da el valor de esta.
+
+El modelo de temperatura que utilizaremos será el DHT11.
+
 Código de ejemplo:
 
 <br />#include <dht.h>
@@ -186,6 +200,9 @@ Código de ejemplo:
 
 Estos funcionan gracias al alineamiento de dos campos magnéticos generados por un estator o parte fija del motor que con el suyo hace girar una espira con el otro campo generando así la rotación.
 Los motores simplemente tendrán la función de mover el vehículo para darle sensación de realismo y complementar las funcionalidades de algunos de los otros sensores como el de ultrasonidos o el de infrarrojos. También haremos un cálculo de la velocidad media con datos recopilados por las revoluciones por segundo que estos motores den.
+
+Los motores que utilizaremos será de 3V-6V.
+
 Código de ejemplo:
 
 <br />int motorPin = 9;
