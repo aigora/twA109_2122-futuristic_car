@@ -123,7 +123,10 @@ int main(void)
 				}
 
 
-			}while(control!='0')
+
+
+
+			} while (control != '0');
 		}
 
 		case 3:
