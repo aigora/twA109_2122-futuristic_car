@@ -1,10 +1,13 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<locale.h>
+#include <conio.h>
 
 
 
 int menu();
+float velocidad();
+float vel_media();
 
 
 int main(void)
@@ -16,147 +19,220 @@ int main(void)
 
 	//Velocidad
 	int opcion_v;
-	float v1, v2, v3;
+	float v_media;
 
 	//Temperatura
-	float temperatura;
+	double temperatura;
 
 	//Distancia
 	float distancia;
 
 	//Luces
-	int luces_opción;
+	int luces_opcion;
 
 	//Abrir o cerrar coche
-	int abr_cerr_opción;
+	int abr_cerr_opcion;
 
-	opcion = menu();
 	
 	do
 	{
+		opcion = menu();
 		switch (opcion)
 		{
 		case 1:
+		{
 			opcion_v = velocidad();
 			do
 			{
 				switch (opcion_v)
 				{
 				case 1:
-					int v = 2.239;
-					/*Aquí se calculará la velocidad que llevará el veiculo.
-					(Calculando el perímetro de la rueda, dividido por el tiempo que tarda la rueda en hacer una revolución)*/
-					do
-					{
-						printf("La velocidad actual del vehículo es de %.2f m/s", velocidad);
-					}while
+				{float v = 2.239;
+				/*Aquí se calculará la velocidad que llevará el veiculo.
+				(Calculando el perímetro de la rueda, dividido por el tiempo que tarda la rueda en hacer una revolución)*/
+				printf("/////////Pulse cualquier tecla del teclaro/////////\n\n");
+				printf("La velocidad actual del vehículo es de:\n");
+
+				do
+				{
+					printf("%.2f m/s", v);//Se irá actualizando hasta que no se pulse una letra
+				} while (!_kbhit());
+				system("cls");
+				break;
+				}
+
+				case 2:
+				{
+					v_media = vel_media();
+					system("cls");
+					break;
+				}
+
+				default:
+					break;
+				}
+
+			} while (opcion_v != 3);
+			break;
+		}
+
+
+		case 2:
+		{
+			char control;
+
+
+			do
+			{
+				printf("/////////Selecione 0 para salir///////////\n\n");
+				printf("Selecione: W A S D para mover el coche\n");
+				scanf_s("%c", control);
+
+				switch (control)
+				{
+				case 'W':
+				{
+
+					//Mover al frente
+					break;
+				}
+				case 'A':
+				{
+
+					//Mover izquierda
+					break;
+				}
+				case 'D':
+				{
+
+					//Mover derecha
+					break;
+				}
+
+				case 'S':
+				{
+
+					//Mover atrás
+					break;
+				}
+
 
 
 				default:
 					break;
 				}
 
-			} while (op_v != 3);
 
+			}while(control!='0')
+		}
 
-
-
-		default:
+		case 3:
+		{//Aquí se indicará el valor de la temperatura obtenida en el sensor de temperatura
+			temperatura = 25.52;
+			printf("La temperatura del experior del coche es %.2fºC y %.2fK", temperatura, temperatura + 273);
+			int s;
+			scanf_s("%d", &s);
+			system("cls");
 			break;
 		}
 
-		if (opcion == 1)
+		case 4:
 		{
-			printf("Seleccione una opción:\n");
-			printf("1.Velocidad del veículo en este momento\n");
-			printf("2.Velocidad media del coche en un intervalo determinado\n\n");
-
-			scanf_s("%d", &velocidad_opcion);
-			if (velocidad_opción == 1)
-			{
-				velocidad = 2.239;
-				/*Aquí se calculará la velocidad que llevará el veiculo.
-				(Calculando el perímetro de la rueda, dividido por el tiempo que tarda la rueda en hacer una revolución)*/
-				printf("La velocidad actual del vehículo es de %.2f m/s", velocidad);
-			}
-			else if (velocidad_opción == 2)
-			{
-				printf("Seleccione cuando quiera empezar el tiempo");
-				//Aquí se podrá seleccionar una tecla para empezar a cronometrar el tiempo para realizar el recorrido
-
-				v1 = 1;
-				v2 = 3;
-				v3 = 5;
-
-				velocidad = (v1 + v2 + v3) / 3;
-				/*Aquí se pondrán las velocidades que se obtendrán cada poco tiempo del recorrido*/
-				printf("La velocidad media del vehículo en el recorrido seleccionado es de %.2f m/s", velocidad);
-			}
-
-
-		}
-		else if (opción == 2)
-		{
-			//Aquí se indicará el valor de la temperatura obtenida en el sensor de temperatura
-			temperatura = 25.52;
-			printf("La temperatura del experior del coche es %.2fºC y %.2fK", temperatura, temperatura + 273);
-
-		}
-		else if (opción == 3)
-		{
+			int s;
 			distancia = 2.54;
 			//Aquí se indicará el valor de la distancia obtenida en el sensor de distancia
-			printf("La distancia al objeto es %.2f metros", distancia);
+			printf("La distancia al objeto es %.2f metros\n", distancia);
+			scanf_s("%d",&s);
+			system("cls");
+			break;
 		}
-		else if (opción == 4)
+
+		case 5:
 		{
-			printf("¿Que luces quieres encender?\n");
-			printf("1. Luces de largo alcance\n");
-			printf("2. Luces de corto alcance\n");
-			printf("3. Luces de forma automatica\n\n");
 
-			scanf_s("%d", &luces_opción);
+			do {
+				printf("¿Que luces quieres encender?\n");
+				printf("1. Luces de largo alcance\n");
+				printf("2. Luces de corto alcance\n");
+				printf("3. Luces de forma automatica\n");
+				printf("4. Salir\n");
 
-			if (luces_opción == 1)
-			{
-				printf("1. Encendiendo luces de largo alcance\n");
-				//Se encenderán los leds con mucha intensidad
-			}
-			else if (luces_opción == 2)
-			{
-				printf("2. Encendiendo luces de corto alcance\n");
-				//Se encenderán los leds con poca intensidad
-			}
-			else if (luces_opción == 3)
-			{
-				printf("3. Encendiendo luces automaticas\n\n");
-				//Se encenderán los leds con una intensidad que depende de la luz que detecte el sensor de luz
-			}
+				scanf_s("%d", &luces_opcion);
+
+				system("cls");
+
+				switch (luces_opcion)
+				{
+
+				case 1:
+				{
+					int s;
+					printf("1. Encendiendo luces de largo alcance\n");
+					scanf_s("%d", &s);
+					break;
+					//Se encenderán los leds con mucha intensidad
+				}
+				case 2:
+				{
+					int s;
+					printf("2. Encendiendo luces de corto alcance\n");
+					scanf_s("%d", &s);
+					break;
+					//Se encenderán los leds con poca intensidad
+				}
+				case 3:
+				{
+					int s;
+					printf("3. Encendiendo luces automaticas\n\n");
+					scanf_s("%d", &s);
+					break;
+					//Se encenderán los leds con una intensidad que depende de la luz que detecte el sensor de luz
+				}
+				default:
+					break;
+				}
+				system("cls");
+			} while (luces_opcion != 4);
+			break;
 		}
-		else if (opción == 5)
+		case 6:
 		{
 			printf("¿Quieres abrir o cerrar coche?\n");
 			printf("1. Abrir coche\n");
 			printf("2. Cerrar coche\n");
+			printf("3. Salir\n");
 
-			scanf_s("%d", &abr_cerr_opción);
+			scanf_s("%d", &abr_cerr_opcion);
+			do {
+				switch (abr_cerr_opcion)
+				{
 
-			if (abr_cerr_opción == 1)
-			{
-				printf("1. El coche esta abierto\n");
-				//Se desbloqueará la puerta
-			}
-			else if (abr_cerr_opción == 2)
-			{
-				printf("2. El coche esta cerrado\n");
-				//Se cerrará el coche
-			}
+				case 1:
+				{
+					int s;
+					printf("1. El coche esta abierto\n");
+					scanf_s("%d", &s);
+					break;
+					//Se desbloqueará la puerta
+				}
+				case 2:
+				{
+					printf("2. El coche esta cerrado\n");
+					break;
+					//Se cerrará el coche
+				}
+				default:
+					break;
+				}
+				system("cls");
+			} while (luces_opcion!=3);
 		}
-		else {
-			printf("Error.\n");
+		break;
+		default:
+			break;
 		}
-		scanf_s("%d", &opción);
-	} while (opción != 6);
+	}while (opcion != 7);
+
 
 	return 0;
 }
@@ -170,18 +246,19 @@ int menu()
 	printf("MENU PRINCIPAL:\n");
 	printf("Seleccione una opción:\n\n");
 	printf("1. Velocidad del coche\n");
-	printf("2. Temperatura fuera del coche\n");
-	printf("3. Distancia a la que estan los objetos del coche\n");
-	printf("4. Las luces del coche\n");
-	printf("5. Abrir o cerrar puertas del coche.\n");
-	printf("6. Salir de la aplicación.\n");
+	printf("2. Movilidad del coche\n");
+	printf("3. Temperatura fuera del coche\n");
+	printf("4. Distancia a la que estan los objetos del coche\n");
+	printf("5. Las luces del coche\n");
+	printf("6. Abrir o cerrar puertas del coche.\n");
+	printf("7. Salir de la aplicación.\n");
 
 	scanf_s("%d", &opcion);
 	system("cls");
 	return opcion;
 }
 
-int velocidad()
+float velocidad()
 {
 	int op_v;
 	int v;
@@ -192,5 +269,24 @@ int velocidad()
 
 	scanf_s("%d", &op_v);
 	system("cls");
+	return op_v;
 	
+}
+
+float vel_media()
+{
+	printf("Seleccione cuando quiera empezar el tiempo");
+	//Aquí se podrá seleccionar una tecla para empezar a cronometrar el tiempo para realizar el recorrido
+	float v1, v2, v3;
+	float v;
+	do
+	{
+		v1 = 1;
+		v2 = 3;
+		v3 = 5;
+		v = (float)(v1 + v2 + v3) / 3;
+		/*Aquí se pondrán las velocidades que se obtendrán cada poco tiempo del recorrido*/
+		printf("La velocidad media del vehículo en el recorrido seleccionado es de %.2f m/s", v);
+	} while (!_kbhit);
+	return v;
 }
