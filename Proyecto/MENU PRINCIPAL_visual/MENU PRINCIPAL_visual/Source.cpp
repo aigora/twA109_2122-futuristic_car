@@ -3,11 +3,14 @@
 #include<locale.h>
 #include <conio.h>
 
+#define L 100;
+
 
 
 int menu();
 float velocidad();
 float vel_media();
+int comandos(char);
 
 
 int main(void)
@@ -80,13 +83,17 @@ int main(void)
 		case 2:
 		{
 			char control;
-
+			//char direccion[L];
+			//int i = 0;
 
 			do
 			{
 				printf("/////////Selecione 0 para salir///////////\n\n");
 				printf("Selecione: W A S D para mover el coche\n");
-				scanf_s("%c", control);
+				scanf_s("%c", &control);
+
+				//direccion[i] = control;
+				//i++;
 
 				switch (control)
 				{
@@ -116,17 +123,23 @@ int main(void)
 					break;
 				}
 
-
-
 				default:
 					break;
 				}
 
-
-
-
-
 			} while (control != '0');
+
+			/*char op;
+			printf("¿Quieres ver los movimientos que han sido enviados?");
+			printf("a)Sí\nb)No");
+			scanf_s("%c", &op);
+			if (op == 'a')
+			{
+				
+			}
+
+			*/
+
 		}
 
 		case 3:
@@ -205,8 +218,9 @@ int main(void)
 			printf("2. Cerrar coche\n");
 			printf("3. Salir\n");
 
-			scanf_s("%d", &abr_cerr_opcion);
+			
 			do {
+				scanf_s("%d", &abr_cerr_opcion);
 				switch (abr_cerr_opcion)
 				{
 
@@ -220,7 +234,9 @@ int main(void)
 				}
 				case 2:
 				{
+					int s;
 					printf("2. El coche esta cerrado\n");
+					scanf_s("%d", &s);
 					break;
 					//Se cerrará el coche
 				}
@@ -228,9 +244,10 @@ int main(void)
 					break;
 				}
 				system("cls");
-			} while (luces_opcion!=3);
+			} while (abr_cerr_opcion!=3);
+			break;
 		}
-		break;
+		
 		default:
 			break;
 		}
@@ -293,3 +310,4 @@ float vel_media()
 	} while (!_kbhit);
 	return v;
 }
+
