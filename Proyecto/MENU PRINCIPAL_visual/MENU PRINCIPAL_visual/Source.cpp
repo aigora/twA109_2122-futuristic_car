@@ -10,7 +10,7 @@
 int menu();
 float velocidad();
 float vel_media();
-int comandos(char);
+//int comandos(char);
 
 
 int main(void)
@@ -89,7 +89,7 @@ int main(void)
 			do
 			{
 				printf("/////////Selecione 0 para salir///////////\n\n");
-				printf("Selecione: W A S D para mover el coche\n");
+				printf("Selecione: W A S para mover el coche\n");
 				scanf_s("%c", &control);
 
 				//direccion[i] = control;
@@ -97,13 +97,13 @@ int main(void)
 
 				switch (control)
 				{
-				case 'W':
+				case 'w':
 				{
 
 					//Mover al frente
 					break;
 				}
-				case 'A':
+				case 'a':
 				{
 
 					//Mover izquierda
@@ -113,13 +113,6 @@ int main(void)
 				{
 
 					//Mover derecha
-					break;
-				}
-
-				case 'S':
-				{
-
-					//Mover atrás
 					break;
 				}
 
