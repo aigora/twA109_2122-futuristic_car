@@ -13,7 +13,6 @@ int menu(void);
 void verifica_sensores(Serial*, char*);
 void monitorizar_sensor_distancia(Serial*);
 void monitorizar_sensor_ilum(Serial*);
-void activar_alarma_distancia(Serial* Arduino);
 void comprobar_mensajes(Serial*);
 float leer_sensor_distancia(Serial*);
 float leer_sensor_ilum(Serial*);
@@ -36,7 +35,7 @@ int main(void)
 		{
 		case 0: break;
 		case 1:
-			verifica_sensores(Arduino, puerto);
+			verifica_sensor_distancia(Arduino, puerto);
 			break;
 		case 2:
 			monitorizar_sensor_distancia(Arduino);
@@ -70,7 +69,7 @@ int menu(void)
 		printf("1 - Verificar sensores.\n");
 		printf("2 - Monitorizar sensor de distancia.\n");
 		printf("3 - Monitorizar sensor de iluminación.\n");
-		printf("4 - Activar/Desactivar alarma por distancia\n");
+		//printf("4 - Activar/Desactivar alarma por distancia\n");
 		printf("5 - Salir de la aplicación\n");
 		printf("Opción:");
 	}
@@ -103,17 +102,6 @@ void comprobar_mensajes(Serial* Arduino)
 	}
 }
 
-void activar_alarma_distancia(Serial* Arduino)
-{
-	int bytesRecibidos;
-	char mensaje_recibido[MAX_BUFFER];
-
-	bytesRecibidos = Enviar_y_Recibir(Arduino, "SET_MODO_ALARMA\n", mensaje_recibido);
-	if (bytesRecibidos <= 0)
-		printf("\nNo se ha recibido confirmación\n");
-	else
-		printf("\n%s\n", mensaje_recibido);
-}
 
 void monitorizar_sensor_distancia(Serial* Arduino)
 {
