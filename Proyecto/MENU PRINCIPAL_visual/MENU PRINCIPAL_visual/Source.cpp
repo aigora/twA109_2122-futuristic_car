@@ -11,6 +11,8 @@
 
 
 int menu();
+int menu_luces();
+int menu_ac();
 /*float velocidad();
 float vel_media();*/
 
@@ -155,15 +157,7 @@ int main(void)
 		{
 
 			do {
-				printf("¿Que luces quieres encender?\n");
-				printf("1. Luces de largo alcance\n");
-				printf("2. Luces de corto alcance\n");
-				printf("3. Luces de forma automatica\n");
-				printf("4. Salir\n");
-
-				scanf_s("%d", &luces_opcion);
-
-				system("cls");
+				luces_opcion = menu_luces();
 
 				switch (luces_opcion)
 				{
@@ -199,18 +193,11 @@ int main(void)
 			break;
 		}
 		case 6:
-		{
-			printf("¿Quieres abrir o cerrar coche?\n");
-			printf("1. Abrir coche\n");
-			printf("2. Cerrar coche\n");
-			printf("3. Salir\n");
-
-			
+		{			
 			do {
-				scanf_s("%d", &abr_cerr_opcion);
+				abr_cerr_opcion = menu_ac();
 				switch (abr_cerr_opcion)
 				{
-
 				case 1:
 				{
 					int s;
@@ -264,6 +251,41 @@ int menu()
 	system("cls");
 	return opcion;
 }
+
+int menu_ac()
+{
+	int opc;
+	printf("¿Quieres abrir o cerrar coche?\n");
+	printf("1. Abrir coche\n");
+	printf("2. Cerrar coche\n");
+	printf("3. Salir\n");
+	
+	scanf_s("%d", &opc);
+	system("cls");
+
+	return opc;
+}
+
+int menu_luces()
+{
+	int op;
+	printf("¿Que luces quieres encender?\n");
+	printf("1. Luces de largo alcance\n");
+	printf("2. Luces de corto alcance\n");
+	printf("3. Luces de forma automatica\n");
+	printf("4. Salir\n");
+
+	scanf_s("%d", &op);
+	system("cls");
+	return op;
+
+
+}
+
+
+
+
+
 
 /*float velocidad()
 {
