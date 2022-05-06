@@ -44,7 +44,7 @@ int main(void)
 			monitorizar_sensor_ilum(Arduino);
 			break;
 		case 4:
-			activar_alarma_distancia(Arduino);
+			//activar_alarma_distancia(Arduino);
 			break;
 		case 5:
 			break;

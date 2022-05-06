@@ -11,8 +11,8 @@
 
 
 int menu();
-float velocidad();
-float vel_media();
+/*float velocidad();
+float vel_media();*/
 
 
 //Funciones para sensores
@@ -33,9 +33,9 @@ int main(void)
 	//Menú principal
 	int opcion;
 
-	//Velocidad
+	/*/Velocidad
 	int opcion_v;
-	float v_media;
+	float v_media;*/
 
 	//Temperatura
 	double temperatura;
@@ -55,7 +55,7 @@ int main(void)
 		opcion = menu();
 		switch (opcion)
 		{
-		case 1:
+		/*case 1:
 		{
 			opcion_v = velocidad();
 			do
@@ -64,8 +64,6 @@ int main(void)
 				{
 				case 1:
 				{float v = 2.239;
-				/*Aquí se calculará la velocidad que llevará el veiculo.
-				(Calculando el perímetro de la rueda, dividido por el tiempo que tarda la rueda en hacer una revolución)*/
 				printf("/////////Pulse cualquier tecla del teclaro/////////\n\n");
 				printf("La velocidad actual del vehículo es de:\n");
 
@@ -90,7 +88,7 @@ int main(void)
 
 			} while (opcion_v != 3);
 			break;
-		}
+		}*/
 
 
 		case 2:
@@ -134,18 +132,6 @@ int main(void)
 				}
 
 			} while (control != '0');
-
-			/*char op;
-			printf("¿Quieres ver los movimientos que han sido enviados?");
-			printf("a)Sí\nb)No");
-			scanf_s("%c", &op);
-			if (op == 'a')
-			{
-				
-			}
-
-			*/
-
 		}
 
 		case 3:
@@ -266,7 +252,7 @@ int menu()
 	int opcion;
 	printf("MENU PRINCIPAL:\n");
 	printf("Seleccione una opción:\n\n");
-	printf("1. Velocidad del coche\n");
+	//printf("1. Velocidad del coche\n");
 	printf("2. Movilidad del coche\n");
 	printf("3. Temperatura fuera del coche\n");
 	printf("4. Distancia a la que estan los objetos del coche\n");
@@ -279,7 +265,7 @@ int menu()
 	return opcion;
 }
 
-float velocidad()
+/*float velocidad()
 {
 	int op_v;
 	int v;
@@ -306,13 +292,10 @@ float vel_media()
 		v2 = 3;
 		v3 = 5;
 		v = (float)(v1 + v2 + v3) / 3;
-		/*Aquí se pondrán las velocidades que se obtendrán cada poco tiempo del recorrido*/
 		printf("La velocidad media del vehículo en el recorrido seleccionado es de %.2f m/s", v);
 	} while (_kbhit()==0);
 	return v;
-}
-
-
+}*/
 
 
 void verifica_sensor_distancia(Serial* Arduino, char* port)
