@@ -271,7 +271,7 @@ int menu()
 	return opcion;
 }
 
-float velocidad()
+/*float velocidad()
 {
 	int op_v;
 	int v;
@@ -298,9 +298,25 @@ float vel_media()
 		v2 = 3;
 		v3 = 5;
 		v = (float)(v1 + v2 + v3) / 3;
-		/*Aquí se pondrán las velocidades que se obtendrán cada poco tiempo del recorrido*/
+		/*Aquí se pondrán las velocidades que se obtendrán cada poco tiempo del recorrido
 		printf("La velocidad media del vehículo en el recorrido seleccionado es de %.2f m/s", v);
 	} while (!_kbhit);
 	return v;
+}*/
+
+
+int menu_mover()
+{
+	int opcion_MOVER;
+
+	printf("Seleccione una opción:\n\n");
+	printf("W. Mover para alante\n");
+	printf("A. Mover hacia la izquierda\n");
+	printf("S. Mover hacia la derecha\n");
+	printf("7. Salir de la aplicación.\n");
+
+	scanf_s("%d", &opcion);
+	system("cls");
+	return opcion;
 }
 
