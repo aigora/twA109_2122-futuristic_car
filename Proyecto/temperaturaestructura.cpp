@@ -4,7 +4,7 @@
 
 #define MAX 10
 
-void guardar_en_disco(int v[], int n);
+void guardar_en_disco(int temp);
 int leer_desde_disco(int v[]);
 
 int main(void)
@@ -57,21 +57,22 @@ int leer_desde_disco(int v[])
     return total;
 }
 
-void guardar_en_disco(int v[], int n)
+void guardar_en_disco(float* temp)
 {
     FILE* fichero;
     errno_t e;
     int i;
 
-    e = fopen_s(&fichero, "Temperaturas.txt", "wt");
+    e = fopen_s(&fichero, "Temperaturas.txt", "at");
     if (fichero == NULL)
         printf("Error: No se ha podido guardar el fichero\n");
     else
     {
-        for (i = 0; i < n; i++)
-            fprintf(fichero, "%d ", v[i]);
-        fclose(fichero);
+       
+       fprintf(fichero, "%.2f", temp);
+        
     }
+	fclose(fichero);
 }
 
 void verifica_sensores(Serial* Arduino, char* port)
@@ -87,7 +88,7 @@ void verifica_sensores(Serial* Arduino, char* port)
 	else
 	{
 		printf("\nNo se ha podido conectar con Arduino.\n");
-		printf("Revise la conexión, el puerto %s y desactive el monitor serie del IDE de Arduino.\n", port);
+		printf("Revise la conexiÃ³n, el puerto %s y desactive el monitor serie del IDE de Arduino.\n", port);
 	}
 }
 
