@@ -4,7 +4,7 @@
 
 #define MAX 10
 
-void guardar_en_disco(int temp);
+void guardar_en_disco(int v[], float temp);
 int leer_desde_disco(int v[]);
 
 int main(void)
@@ -57,7 +57,7 @@ int leer_desde_disco(int v[])
     return total;
 }
 
-void guardar_en_disco(float* temp)
+void guardar_en_disco(int v[], float* temp)
 {
     FILE* fichero;
     errno_t e;
