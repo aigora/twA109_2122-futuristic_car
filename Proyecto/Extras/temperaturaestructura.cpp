@@ -4,7 +4,7 @@
 
 #define MAX 10
 
-void guardar_en_disco(int v[], float temp);
+void guardar_en_disco(int v[], float* temp);
 int leer_desde_disco(int v[]);
 
 int main(void)
