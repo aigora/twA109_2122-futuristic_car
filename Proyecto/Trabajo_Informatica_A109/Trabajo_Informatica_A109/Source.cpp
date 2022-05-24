@@ -31,6 +31,15 @@ int Enviar_y_Recibir(Serial* ,const char* , char* );
 float float_from_cadena(char* cadena);
 
 
+/*//Funciones para guardar ficheros
+#define MAX 20
+void guardar_en_disco(int v[], float* temp);
+int leer_desde_disco(int v[]);
+*/
+
+
+
+
 
 int main(void)
 {
@@ -222,9 +231,6 @@ int menu(void)
 	return opcion;
 }
 
-
-
-
 int menu_mover()
 {
 
@@ -301,8 +307,6 @@ int menu_abrir_cerrar(void)
 
 
 
-
-
 void comprobar_mensajes(Serial* Arduino)
 {
 	int bytesRecibidos, total = 0;
@@ -321,7 +325,6 @@ void comprobar_mensajes(Serial* Arduino)
 		printf("\nMensaje recibido: %s\n", mensaje_recibido);
 	}
 }
-
 
 void monitorizar_sensor_distancia(Serial* Arduino)
 {
@@ -383,7 +386,6 @@ void monitorizar_sensor_ilum(Serial* Arduino)
 	return;
 }
 
-
 void monitorizar_sensor_temperatura(Serial* Arduino)
 {
 	float frecuencia, temperatura;
@@ -413,7 +415,6 @@ void monitorizar_sensor_temperatura(Serial* Arduino)
 	tecla = _getch();
 	return;
 }
-
 
 void verifica_sensores(Serial* Arduino,char* port)
 {
@@ -447,7 +448,6 @@ float leer_sensor_distancia(Serial* Arduino)
 	return distancia;
 }
 
-
 float leer_sensor_ilum(Serial* Arduino)
 {
 	float ilum;
@@ -477,8 +477,6 @@ float leer_sensor_temperatura(Serial* Arduino)
 		temperatura = float_from_cadena(mensaje_recibido);
 	return temperatura;
 }
-
-
 
 int Enviar_y_Recibir(Serial* Arduino, const char* mensaje_enviar, char* mensaje_recibir)
 {
@@ -510,7 +508,6 @@ int Enviar_y_Recibir(Serial* Arduino, const char* mensaje_enviar, char* mensaje_
 	//printf("LOG: %d bytes -> %s\nIntentos=%d - EOLN=%d\n", total, mensaje_recibir,intentos,fin_linea);
 	return total;
 }
-
 
 float float_from_cadena(char* cadena)
 {
@@ -549,3 +546,64 @@ float float_from_cadena(char* cadena)
 		}
 	return numero;
 }
+
+
+
+
+
+/*
+int leer_desde_disco(int v[])
+{
+	FILE* fichero;
+	errno_t e;
+	int total = 0, temperatura;
+
+	e = fopen_s(&fichero, "Temperaturas.txt", "rt");
+	if (fichero == NULL)
+		printf("Error: No se ha podido abrir el fichero\n");
+	else
+	{
+		fscanf_s(fichero, "%d", &temperatura);
+		while (!feof(fichero))
+		{
+			v[total] = temperatura;
+			total++;
+			fscanf_s(fichero, "%d", &temperatura);
+		}
+		fclose(fichero);
+	}
+	return total;
+}
+
+ordenat_temp(int v[], int total)
+{
+	for (int i = 0; i < total; i++)
+	{
+		for (int j = i + 1; j < total; j++)
+		{
+			if (v[j] < v[i])
+			{
+
+			}
+		}
+	}
+}
+
+void guardar_en_disco(int v[], int total)
+{
+	FILE* fichero;
+	errno_t e;
+	int i;
+
+	e = fopen_s(&fichero, "Temperaturas.txt", "at");
+	if (fichero == NULL)
+		printf("Error: No se ha podido guardar el fichero\n");
+	else
+	{
+		for(i=0;i<total;i++)
+		fprintf(fichero, "%.2f", temp);
+
+	}
+	fclose(fichero);
+}
+*/
