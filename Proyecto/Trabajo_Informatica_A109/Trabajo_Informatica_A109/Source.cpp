@@ -46,15 +46,19 @@ int main(void)
 		opcion_menu = menu();
 		switch (opcion_menu)
 		{
-		case 0: break;
+		case 0:
+			break;
 
 		case 1: 
+			system("cls");
 			int control_mover;
 			do
 			{
 				control_mover = menu_mover();
 				switch (control_mover)
 				{
+				case 0:
+					break;
 				case 'w':
 				{
 					//monotorizar_motor
@@ -74,38 +78,44 @@ int main(void)
 					break;
 				}
 				default:
-					printf("Opción incorrecta\n");
+					printf("Opción incorrecta de movimiento\n");
 					break;
 				}
-			} while (control_mover != '0');
+			} while (control_mover != 'e');
 			break;
 
 		case 2:
 		{
+			system("cls");
 			monitorizar_sensor_temperatura(Arduino);
 			break;
 		}
 
 		case 3:
 		{
+			system("cls");
 			monitorizar_sensor_distancia(Arduino);
 			break;
 		}
 
 		case 4:
+			system("cls");
 			int opcion_luces;
 			do {
 				opcion_luces = menu_luces();
 				switch (opcion_luces)
 				{
-
+				case 0:
+					break;
 				case 1:
 				{
+					system("cls");
 					monitorizar_sensor_ilum(Arduino);
 					break;
 				}
 				case 2:
 				{
+					system("cls");
 					int s;
 					printf("2. Encendiendo luces de corto alcance\n");
 					scanf_s("%d", &s);
@@ -114,6 +124,7 @@ int main(void)
 				}
 				case 3:
 				{
+					system("cls");
 					int s;
 					printf("3. Encendiendo luces automaticas\n\n");
 					scanf_s("%d", &s);
@@ -131,11 +142,14 @@ int main(void)
 
 		case 5:
 		{
+			system("cls");
 			int opcion_abrir_cerrar = menu_abrir_cerrar();
 			do {
+		
 				switch (opcion_abrir_cerrar)
 				{
-
+				case 0:
+					break;
 				case 1:
 				{
 					printf("1. El coche esta abierto\n");
@@ -155,21 +169,12 @@ int main(void)
 			
 		break;
 		}
-			/*
-		case 1: 
-			verifica_sensores(Arduino,puerto);
-			break;
-		case 2:
-			monitorizar_sensor_distancia(Arduino);
-			break;
-		case 3:
-			activar_alarma_distancia(Arduino);
-			break;
-		case 4:
+		case 6:
+			printf("\nSalida del programa\n\n");;
 			break;
 
-			*/
-		default: printf("\nOpción incorrecta\n\n");
+		default: 
+			system("cls");
 			break;
 		}
 	} while (opcion_menu != 6);
@@ -186,8 +191,8 @@ int main(void)
 // ***************************************************************************************
 int menu(void)
 {
-	static int opcion=-1;
-	
+	static int opcion = -1;
+
 	if (opcion != 0)
 	{
 		printf("\n");
@@ -203,7 +208,7 @@ int menu(void)
 	}
 	if (_kbhit())
 	{
-		opcion = (int)_getch()-'0';
+		opcion = (int)_getch() - '0';
 		printf("%d\n", opcion);
 	}
 	else
@@ -216,35 +221,24 @@ int menu(void)
 
 int menu_mover()
 {
-	static int opcion = -1;
+
+
+	static char opcion = -1;
 
 	if (opcion != 0)
 	{
-
-	printf("Seleccione una opción:\n\n");
-	printf("W. Mover para alante\n");
-	printf("A. Mover hacia la izquierda\n");
-	printf("D. Mover hacia la derecha\n\n");
-	printf("////Selecciones 0 para salir/////\n");
-
+		printf("\n");
+		printf("Seleccione una opción:\n\n");
+		printf("W. Mover para alante\n");
+		printf("A. Mover hacia la izquierda\n");
+		printf("D. Mover hacia la derecha\n\n");
+		printf("////Selecciones E para salir/////\n");
+		printf("Opción:");
 	}
 	if (_kbhit())
 	{
-		opcion = (int)_getch();
+		opcion = (char)_getch();
 		printf("%d\n", opcion);
-
-		if (opcion == 'w')
-		{
-			opcion = 1;
-		}
-		else if (opcion == 'a')
-		{
-			opcion = 2;
-		}
-		else if (opcion == 'd')
-		{
-			opcion = 3;
-		}
 	}
 	else
 		opcion = 0;
@@ -253,9 +247,9 @@ int menu_mover()
 
 int menu_luces(void)
 {
-	static int opcion = -1;
+	static int opcion_luces = -1;
 
-	if (opcion != 0)
+	if (opcion_luces != 0)
 	{
 		printf("\n");
 		printf("¿Que luces quieres encender?\n");
@@ -267,19 +261,19 @@ int menu_luces(void)
 	}
 	if (_kbhit())
 	{
-		opcion = (int)_getch() - '0';
-		printf("%d\n", opcion);
+		opcion_luces = (int)_getch() - '0';
+		printf("%d\n", opcion_luces);
 	}
 	else
-		opcion = 0;
-	return opcion;
+		opcion_luces = 0;
+	return opcion_luces;
 }
 
 int menu_abrir_cerrar(void)
 {
-	static int opcion = -1;
+	static int opcion_abr = -1;
 
-	if (opcion != 0)
+	if (opcion_abr != 0)
 	{
 		printf("\n");
 		printf("¿Quieres abrir o cerrar coche?\n");
@@ -290,12 +284,12 @@ int menu_abrir_cerrar(void)
 	}
 	if (_kbhit())
 	{
-		opcion = (int)_getch() - '0';
-		printf("%d\n", opcion);
+		opcion_abr = (int)_getch() - '0';
+		printf("%d\n", opcion_abr);
 	}
 	else
-		opcion = 0;
-	return opcion;
+		opcion_abr = 0;
+	return opcion_abr;
 }
 
 
