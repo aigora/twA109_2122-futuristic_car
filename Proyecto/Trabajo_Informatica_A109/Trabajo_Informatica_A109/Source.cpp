@@ -61,23 +61,25 @@ int main(void)
 					break;
 				case 'w':
 				{
+					system("cls");
 					//monotorizar_motor
-					printf("Moviendo coche recto");
+					printf("////Moviendo coche recto////\n\n");
 					break;
 				}
 				case 'a':
 				{
-					printf("Moviendo coche izquierda");
+					system("cls");
+					printf("////Moviendo coche izquierda////\n\n");
 
 					break;
 				}
 				case 'd':
-				{
-					printf("Moviendo coche derecha");
+				{system("cls");
+					printf("////Moviendo coche derecha/////\n\n");
 
 					break;
 				}
-				default:
+				default:system("cls");
 					printf("Opción incorrecta de movimiento\n");
 					break;
 				}
@@ -135,6 +137,7 @@ int main(void)
 					printf("Opción incorrecta\n");
 					break;
 				}
+				system("cls");
 			} while (opcion_luces != 4);
 
 			break;
@@ -151,18 +154,19 @@ int main(void)
 				case 0:
 					break;
 				case 1:
-				{
+				{system("cls");
 					printf("1. El coche esta abierto\n");
 					break;
 					//Se desbloqueará la puerta
 				}
 				case 2:
-				{
+				{system("cls");
 					printf("2. El coche esta cerrado\n");
 					break;
 					//Se cerrará el coche
 				}
 				default:
+					system("cls");
 					break;
 				}
 			} while (opcion_abrir_cerrar != 3);
@@ -170,6 +174,7 @@ int main(void)
 		break;
 		}
 		case 6:
+			system("cls");
 			printf("\nSalida del programa\n\n");;
 			break;
 
@@ -177,6 +182,7 @@ int main(void)
 			system("cls");
 			break;
 		}
+		
 	} while (opcion_menu != 6);
 	return 0;
 }
