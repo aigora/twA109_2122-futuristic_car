@@ -83,6 +83,11 @@ int menu(void)
 	return opcion;
 }
 
+
+
+
+
+
 void comprobar_mensajes(Serial* Arduino)
 {
 	int bytesRecibidos, total = 0;
