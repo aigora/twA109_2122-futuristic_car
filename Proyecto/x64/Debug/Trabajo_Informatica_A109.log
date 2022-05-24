@@ -1,5 +1,0 @@
-﻿  Source.cpp
-c1xx : fatal error C1083: No se puede abrir el archivo origen: 'Source.cpp': No such file or directory
-  SerialClass.cpp
-c1xx : fatal error C1083: No se puede abrir el archivo origen: 'SerialClass\SerialClass.cpp': No such file or directory
-  Generando código...
