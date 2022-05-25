@@ -6,7 +6,7 @@ const int SensorPIN = A1;
 const int pinIN4=11;
 const int pinIN3=12;
 const int pinIN1=10;
-const int pinIN2=13;
+const int pinIN2=7;
 #define led 13
 #include <Servo.h>
 #include <math.h>
@@ -18,7 +18,7 @@ float A = 1.11492089e-3;
 float B = 2.372075385e-4;
 float C = 6.954079529e-8;
 float K = 2.5; //factor de disipacion en mW/C
-
+int ping(int , int ) ;
  
 void setup() {
 servo.attach(11); 
@@ -63,34 +63,35 @@ if( Serial.available()> 0){
       digitalWrite(pinIN2,HIGH);
       digitalWrite(pinIN1,LOW);
       delay(200);
-
-      digitalWrite(pinIN4,LOW);
-      digitalWrite(pinIN3,LOW);
-      digitalWrite(pinIN2,LOW);
-      digitalWrite(pinIN1,LOW);
       
       }
       else
       if(str.compareTo("s")==0)
-      {digitalWrite(pinIN3,HIGH);
-      digitalWrite(pinIN4,LOW);
+      { digitalWrite(pinIN4,LOW);
+        digitalWrite(pinIN3,HIGH);
       digitalWrite(pinIN1,HIGH);
       digitalWrite(pinIN2,LOW);
       delay(200);}
       else
-      if(str.compareTo("d")==0)
+      if(str.compareTo("a")==0)
       {digitalWrite(pinIN4,HIGH);
       digitalWrite(pinIN3,LOW);
       digitalWrite(pinIN1,HIGH);
       digitalWrite(pinIN2,LOW);
       delay(200);}
       else
-      if(str.compareTo("a")==0)
-      {digitalWrite(pinIN3,HIGH);
-      digitalWrite(pinIN4,LOW);
+      if(str.compareTo("d")==0)
+      {  digitalWrite(pinIN4,LOW);
+        digitalWrite(pinIN3,HIGH);
       digitalWrite(pinIN2,HIGH);
       digitalWrite(pinIN1,LOW);
       delay(200);}
+      else
+      if(str.compareTo("e")==0)
+      {digitalWrite(pinIN4,HIGH);
+      digitalWrite(pinIN3,HIGH);
+      digitalWrite(pinIN2,LOW);
+      digitalWrite(pinIN1,LOW);}
       else
       str="COMANDO DESCONOCIDO";
  
