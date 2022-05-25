@@ -35,14 +35,14 @@ float leer_sensor_temperatura(Serial*);
 int Enviar_y_Recibir(Serial*, const char*, char*);
 float float_from_cadena(char* cadena);
 
-//FunciÃ³n motores
+//Función motores
 void mandar_motores(Serial*, char);
 
 
 int main(void)
 {
 	Serial* Arduino;
-	char puerto[] = "COM3"; // Puerto serie al que estÃ¡ conectado Arduino
+	char puerto[] = "COM3"; // Puerto serie al que está conectado Arduino
 	int opcion_menu;
 
 	setlocale(LC_ALL, "es-ES");
@@ -161,7 +161,7 @@ int main(void)
 
 
 // ***************************************************************************************
-// Las funciones menÃº se limitan a mostrar en pantalla las ofertas de opciones disponibles
+// Las funciones menú se limitan a mostrar en pantalla las ofertas de opciones disponibles
 // ***************************************************************************************
 int menu(void)
 {
@@ -173,14 +173,14 @@ int menu(void)
 		system("cls");
 		printf("\n");
 		printf("MENU PRINCIPAL:\n");
-		printf("Seleccione una opciÃ³n:\n\n");
+		printf("Seleccione una opción:\n\n");
 		printf("1. Movilidad del coche\n");
 		printf("2. Temperatura del coche\n");
 		printf("3. Distancia a la que estan los objetos del coche\n");
 		printf("4. Las luces del coche\n");
 		//printf("5. Abrir o cerrar puertas del coche.\n");
-		printf("5. Salir de la aplicaciÃ³n.\n");
-		printf("OpciÃ³n:");
+		printf("5. Salir de la aplicación.\n");
+		printf("Opción:");
 	}
 	if (_kbhit())
 	{
@@ -201,7 +201,7 @@ int menu_mover()
 	if (opcion != 0)
 	{
 		printf("\n");
-		printf("Seleccione una direcciÃ³n:\n\n");
+		printf("Seleccione una dirección:\n\n");
 		printf("                              ---\n");
 		printf("                             | W |\n");
 		printf("                      ---     ---    ---\n");
@@ -227,10 +227,10 @@ int menu_luces(void)
 	if (opcion_luces != 0)
 	{
 		printf("\n\n");
-		printf("Â¿Que luces quieres encender?\n");
+		printf("¿Que luces quieres encender?\n");
 		printf("1. Valores de la luz\n");
 		printf("2. Salir\n");
-		printf("OpciÃ³n:");
+		printf("Opción:");
 	}
 	if (_kbhit())
 	{
@@ -250,11 +250,11 @@ int menu_temp(void)
 	if (opcion_temp != 0)
 	{
 		printf("\n\n");
-		printf("Seleciona una opciÃ³n:\n");
+		printf("Seleciona una opción:\n");
 		printf("1. Valores de las temperaturas\n");
 		printf("2. Temperaturas registradas\n");
 		printf("3. Salir\n");
-		printf("OpciÃ³n:");
+		printf("Opción:");
 	}
 	if (_kbhit())
 	{
@@ -275,11 +275,11 @@ int menu_dist(void)
 	if (opcion_dis != 0)
 	{
 		printf("\n\n");
-		printf("Seleciona una opciÃ³n:\n");
+		printf("Seleciona una opción:\n");
 		printf("1.Leer distancia\n");
 		printf("2.Distancias registradas\n");
 		printf("3. Salir\n");
-		printf("OpciÃ³n:");
+		printf("Opción:");
 	}
 	if (_kbhit())
 	{
@@ -377,7 +377,7 @@ void monitorizar_sensor_ilum(Serial* Arduino)
 		scanf_s("%f", &frecuencia);
 	} while (frecuencia < 0.5 || frecuencia>2.0);
 
-	printf("Pulse una tecla para finalizar la monitorizaciÃ³n\n");
+	printf("Pulse una tecla para finalizar la monitorización\n");
 	do
 	{
 		if (Arduino->IsConnected())
@@ -407,7 +407,7 @@ void monitorizar_sensor_temperatura(Serial* Arduino)
 		scanf_s("%f", &frecuencia);
 	} while (frecuencia < 0.5 || frecuencia>2.0);
 
-	printf("Pulse una tecla para finalizar la monitorizaciÃ³n\n");
+	printf("Pulse una tecla para finalizar la monitorización\n");
 	do
 	{
 		if (Arduino->IsConnected())
@@ -441,7 +441,7 @@ void monitorizar_sensor_distancia(Serial* Arduino)
 		scanf_s("%f", &frecuencia);
 	} while (frecuencia < 0.5 || frecuencia>2.0);
 
-	printf("Pulse una tecla para finalizar la monitorizaciÃ³n\n");
+	printf("Pulse una tecla para finalizar la monitorización\n");
 	do
 	{
 		if (Arduino->IsConnected())
@@ -537,7 +537,7 @@ void verifica_sensores(Serial* Arduino, char* port)
 	else
 	{
 		printf("\nNo se ha podido conectar con Arduino.\n");
-		printf("Revise la conexiÃ³n, el puerto %s y desactive el monitor serie del IDE de Arduino.\n", port);
+		printf("Revise la conexión, el puerto %s y desactive el monitor serie del IDE de Arduino.\n", port);
 	}
 }
 
@@ -630,14 +630,14 @@ float float_from_cadena(char* cadena)
 	for (i = 0; cadena[i] != '\0' && estado != 3 && i < MAX_BUFFER; i++)
 		switch (estado)
 		{
-		case 0:// Antes del nÃºmero
+		case 0:// Antes del número
 			if (cadena[i] >= '0' && cadena[i] <= '9')
 			{
 				numero = cadena[i] - '0';
 				estado = 1;
 			}
 			break;
-		case 1:// Durante el nÃºmero
+		case 1:// Durante el número
 			if (cadena[i] >= '0' && cadena[i] <= '9')
 				numero = numero * 10 + cadena[i] - '0';
 			else
@@ -706,7 +706,7 @@ void mandar_motores(Serial* Arduino, char control_mover)
 		break;
 
 	default:system("cls");
-		printf("OpciÃ³n incorrecta de movimiento\n");
+		printf("Opción incorrecta de movimiento\n");
 		break;
 	}
 }
