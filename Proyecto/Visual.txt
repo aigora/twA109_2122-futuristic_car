@@ -12,7 +12,8 @@
 int menu(void);
 int menu_mover(void);
 int menu_luces(void);
-int menu_abrir_cerrar(void);
+int menu_dist(void);
+int menu_temp(void);
 
 //Funciones Sensores
 void verifica_sensores(Serial*, char*);
@@ -20,6 +21,10 @@ void verifica_sensores(Serial*, char*);
 void monitorizar_sensor_distancia(Serial*);
 void monitorizar_sensor_ilum(Serial*);
 void monitorizar_sensor_temperatura(Serial*);
+void guardar_temperatura(float* temperatura);
+void leer_temperatura(void);
+void leer_distancia(void);
+void guardar_distancia(float* distancia);
 
 void comprobar_mensajes(Serial*);
 
@@ -37,14 +42,16 @@ void mandar_motores(Serial*, char);
 int main(void)
 {
 	Serial* Arduino;
-	char puerto[] = "COM6"; // Puerto serie al que está conectado Arduino
+	char puerto[] = "COM3"; // Puerto serie al que está conectado Arduino
 	int opcion_menu;
 
 	setlocale(LC_ALL, "es-ES");
 	Arduino = new Serial((char*)puerto);
+
 	do
 	{
 		comprobar_mensajes(Arduino);
+
 		opcion_menu = menu();
 		switch (opcion_menu)
 		{
@@ -65,19 +72,58 @@ int main(void)
 		case 2:
 		{
 			system("cls");
-			monitorizar_sensor_temperatura(Arduino);
-			break;
+			int opcion_temp;
+			do {
+				opcion_temp = menu_temp();
+				switch (opcion_temp)
+				{
+				case 1:
+				{
+					monitorizar_sensor_temperatura(Arduino);
+				}
+				break;
+				case 2:
+				{
+					leer_temperatura();
+				}
+				break;
+				default:
+					break;
+				}
+
+
+			} while (opcion_temp != 3);
 		}
+		break;
+
 
 		case 3:
 		{
 			system("cls");
-			monitorizar_sensor_distancia(Arduino);
-			break;
-		}
+			int opcion_dist;
+			do {
+				opcion_dist = menu_dist();
+				switch (opcion_dist)
+				{
+				case 1:
+				{
+					monitorizar_sensor_distancia(Arduino);
+				}
+				break;
+				case 2:
+				{
+					leer_distancia();
+				}
+				break;
+				default:
+					break;
+				}
+
+			} while (opcion_dist != 3);
+		}break;
 
 		case 4:
-			system("cls");
+		{ system("cls");
 			int opcion_luces;
 			do {
 				opcion_luces = menu_luces();
@@ -86,67 +132,15 @@ int main(void)
 				case 0:
 					break;
 				case 1:
-				{
 					system("cls");
 					monitorizar_sensor_ilum(Arduino);
 					break;
-				}
-				case 2:
-				{
-					system("cls");
-					int s;
-					printf("2. Encendiendo luces de corto alcance\n");
-					scanf_s("%d", &s);
-					break;
-					//Se encenderán los leds con poca intensidad
-				}
-				case 3:
-				{
-					system("cls");
-					int s;
-					printf("3. Encendiendo luces automaticas\n\n");
-					scanf_s("%d", &s);
-					break;
-					//Se encenderán los leds con una intensidad que depende de la luz que detecte el sensor de luz
-				}
 				default:
-					printf("Opción incorrecta\n");
 					break;
 				}
-				system("cls");
-			} while (opcion_luces != 4);
-
-			break;
-		/*case 5:
-		{
-			system("cls");
-			int opcion_abrir_cerrar = menu_abrir_cerrar();
-			do {
-
-				switch (opcion_abrir_cerrar)
-				{
-				case 0:
-					break;
-				case 1:
-				{system("cls");
-				printf("1. El coche esta abierto\n");
+			} while (opcion_luces != 2);
 				break;
-				//Se desbloqueará la puerta
-				}
-				case 2:
-				{system("cls");
-				printf("2. El coche esta cerrado\n");
-				break;
-				//Se cerrará el coche
-				}
-				default:
-					system("cls");
-					break;
-				}
-			} while (opcion_abrir_cerrar != 3);
-
-			break;
-		}*/
+				
 		case 5:
 			system("cls");
 			printf("\nSalida del programa\n\n");;
@@ -155,8 +149,8 @@ int main(void)
 		default:
 			system("cls");
 			break;
+			}
 		}
-
 	} while (opcion_menu != 5);
 	return 0;
 }
@@ -171,10 +165,12 @@ int main(void)
 // ***************************************************************************************
 int menu(void)
 {
+
 	static int opcion = -1;
 
 	if (opcion != 0)
 	{
+		system("cls");
 		printf("\n");
 		printf("MENU PRINCIPAL:\n");
 		printf("Seleccione una opción:\n\n");
@@ -196,9 +192,6 @@ int menu(void)
 	return opcion;
 }
 
-
-
-
 int menu_mover()
 {
 
@@ -216,10 +209,6 @@ int menu_mover()
 		printf("                      ---     ---    ---\n");
 		printf("                             | S |\n");
 		printf("                              ---\n\n\n");
-		/*printf("W. Mover para alante\n");
-		printf("A. Mover hacia la izquierda\n");
-		printf("S. Mover hacia atrás\n");
-		printf("D. Mover hacia la derecha\n\n");*/
 		printf("///////////////Selecciones E para salir a menu///////////////\n");
 	}
 	if (_kbhit())
@@ -237,12 +226,10 @@ int menu_luces(void)
 
 	if (opcion_luces != 0)
 	{
-		printf("\n");
+		printf("\n\n");
 		printf("¿Que luces quieres encender?\n");
 		printf("1. Valores de la luz\n");
-		printf("2. Encender luces\n");
-		printf("3. Apagar luces\n");
-		printf("4. Salir\n");
+		printf("2. Salir\n");
 		printf("Opción:");
 	}
 	if (_kbhit())
@@ -255,30 +242,54 @@ int menu_luces(void)
 	return opcion_luces;
 }
 
-int menu_abrir_cerrar(void)
+int menu_temp(void)
 {
-	static int opcion_abr = -1;
+	setlocale(LC_ALL, "es-ES");
+	static int opcion_temp = -1;
 
-	if (opcion_abr != 0)
+	if (opcion_temp != 0)
 	{
-		printf("\n");
-		printf("¿Quieres abrir o cerrar coche?\n");
-		printf("1. Abrir coche\n");
-		printf("2. Cerrar coche\n");
+		printf("\n\n");
+		printf("Seleciona una opción:\n");
+		printf("1. Valores de las temperaturas\n");
+		printf("2. Temperaturas registradas\n");
 		printf("3. Salir\n");
 		printf("Opción:");
 	}
 	if (_kbhit())
 	{
-		opcion_abr = (int)_getch() - '0';
-		printf("%d\n", opcion_abr);
+		opcion_temp = (int)_getch() - '0';
+		printf("%d\n", opcion_temp);
 	}
 	else
-		opcion_abr = 0;
-	return opcion_abr;
+		opcion_temp = 0;
+	return opcion_temp;
 }
 
+int menu_dist(void)
+{
 
+	setlocale(LC_ALL, "es-ES");
+	static int opcion_dis = -1;
+
+	if (opcion_dis != 0)
+	{
+		printf("\n\n");
+		printf("Seleciona una opción:\n");
+		printf("1.Leer distancia\n");
+		printf("2.Distancias registradas\n");
+		printf("3. Salir\n");
+		printf("Opción:");
+	}
+	if (_kbhit())
+	{
+		opcion_dis = (int)_getch() - '0';
+		printf("%d\n", opcion_dis);
+	}
+	else
+		opcion_dis = 0;
+	return opcion_dis;
+}
 
 
 
@@ -303,35 +314,58 @@ void comprobar_mensajes(Serial* Arduino)
 }
 
 
-void monitorizar_sensor_distancia(Serial* Arduino)
-{
-	float frecuencia, distancia;
-	char tecla;
-	do
-	{
-		printf("Establezca frecuencia de muestreo (0,5 Hz - 2,0 Hz):");
-		scanf_s("%f", &frecuencia);
-	} while (frecuencia < 0.5 || frecuencia>2.0);
 
-	printf("Pulse una tecla para finalizar la monitorización\n");
-	do
+
+void guardar_distancia(float* distancia)
+{
+	FILE* fichero;
+	errno_t e;
+	e = fopen_s(&fichero, "Registro_distancia.txt", "a+t");
+	if (fichero == NULL)
 	{
-		if (Arduino->IsConnected())
-		{
-			distancia = leer_sensor_distancia(Arduino);
-			if (distancia != -1)
-				printf("%.2f ", distancia);
-			else
-				printf("XXX ");
-		}
-		else
-			printf("\nNo se ha podido conectar con Arduino.\n");
-		if ((1 / frecuencia) * 1000 > PAUSA_MS)
-			Sleep((1 / frecuencia) * 1000 - PAUSA_MS);
-	} while (_kbhit() == 0);
-	tecla = _getch();
-	return;
+		printf("Hay algun error");
+	}
+	else
+	{
+		fprintf_s(fichero, "%f\n", *distancia);
+	}
+	fclose(fichero);
 }
+
+void leer_distancia(void)
+{
+	
+	FILE* fichero;
+	errno_t e;
+	float  distancias[50];
+	int i = 0, contador = 0;
+	e = fopen_s(&fichero, "Registro_distancia.txt", "a+t");
+	if (fichero == NULL)
+	{
+		printf("Hay algun error");
+	}
+	else
+	{
+		while (!feof(fichero))
+		{
+			fscanf_s(fichero, "%f", &distancias[i]);
+			i++;
+			contador++;
+		}
+		
+		printf("\n Distancias registradas hasta el momento: \n");
+		for (i = 0; i < contador-1; i++)
+		{
+			printf("%.2f\n", distancias[i]);
+
+		}
+
+	}
+	fclose(fichero);
+}
+
+
+
 
 void monitorizar_sensor_ilum(Serial* Arduino)
 {
@@ -380,7 +414,11 @@ void monitorizar_sensor_temperatura(Serial* Arduino)
 		{
 			temperatura = leer_sensor_temperatura(Arduino);
 			if (temperatura != -1)
+			{
 				printf("%.2f ", temperatura);
+				guardar_temperatura(&temperatura);
+			}
+
 			else
 				printf("XXX ");
 		}
@@ -391,6 +429,98 @@ void monitorizar_sensor_temperatura(Serial* Arduino)
 	} while (_kbhit() == 0);
 	tecla = _getch();
 	return;
+}
+
+void monitorizar_sensor_distancia(Serial* Arduino)
+{
+	float frecuencia, distancia;
+	char tecla;
+	do
+	{
+		printf("Establezca frecuencia de muestreo (0,5 Hz - 2,0 Hz):");
+		scanf_s("%f", &frecuencia);
+	} while (frecuencia < 0.5 || frecuencia>2.0);
+
+	printf("Pulse una tecla para finalizar la monitorización\n");
+	do
+	{
+		if (Arduino->IsConnected())
+		{
+			distancia = leer_sensor_distancia(Arduino);
+			if (distancia != -1)
+			{
+				printf("%.2f ", distancia);
+				guardar_distancia(&distancia);
+			}
+			else
+				printf("XXX ");
+		}
+		else
+			printf("\nNo se ha podido conectar con Arduino.\n");
+		if ((1 / frecuencia) * 1000 > PAUSA_MS)
+			Sleep((1 / frecuencia) * 1000 - PAUSA_MS);
+	} while (_kbhit() == 0);
+	tecla = _getch();
+	return;
+}
+
+
+
+
+void guardar_temperatura(float* temperatura)
+{
+	FILE* fichero;
+	errno_t e;
+	e = fopen_s(&fichero, "Registro_temperatura.txt", "a+t");
+	if (fichero == NULL)
+	{
+		printf("Hay algun error");
+	}
+	else
+	{
+		fprintf_s(fichero, "%.2f\n", *temperatura);
+	}
+	fclose(fichero);
+}
+
+void leer_temperatura(void)
+{
+	FILE* fichero;
+	errno_t e;
+	float temperaturas[50];
+	int i = 0, contador = 0;
+	float menor, mayor;
+	e = fopen_s(&fichero, "Registro_temperatura.txt", "rt");
+	if (fichero == NULL)
+	{
+		printf("Hay algun error");
+	}
+	else
+	{
+		while (!feof(fichero))
+		{
+			fscanf_s(fichero, "%f", &temperaturas[i]);
+			i++;
+			contador++;
+		}
+		menor = mayor = temperaturas[0];
+		printf("Temperaturas registradas hasta el momento: \n");
+		for (i = 0; i <contador-1; i++)
+		{
+			printf("%.2f\n", temperaturas[i]);
+			if (temperaturas[i] < menor)
+			{
+				menor = temperaturas[i];
+			}
+			if (temperaturas[i] > mayor)
+			{
+				mayor = temperaturas[i];
+			}
+		}
+		printf("La temperatura maxima registrada ha sido %.2f\n", mayor);
+		printf("La temperatura minima registrada ha sido %.2f\n", menor);
+	}
+	fclose(fichero);
 }
 
 
@@ -410,6 +540,9 @@ void verifica_sensores(Serial* Arduino, char* port)
 		printf("Revise la conexión, el puerto %s y desactive el monitor serie del IDE de Arduino.\n", port);
 	}
 }
+
+
+
 
 float leer_sensor_distancia(Serial* Arduino)
 {
@@ -494,7 +627,7 @@ float float_from_cadena(char* cadena)
 	int i, divisor = 10, estado = 0;
 
 
-	for (i = 0;cadena[i] != '\0' && estado != 3 && i < MAX_BUFFER;i++)
+	for (i = 0; cadena[i] != '\0' && estado != 3 && i < MAX_BUFFER; i++)
 		switch (estado)
 		{
 		case 0:// Antes del número
@@ -525,6 +658,8 @@ float float_from_cadena(char* cadena)
 		}
 	return numero;
 }
+
+
 
 
 
@@ -567,7 +702,8 @@ void mandar_motores(Serial* Arduino, char control_mover)
 
 		break;
 	}
-
+	case 'e':
+		break;
 
 	default:system("cls");
 		printf("Opción incorrecta de movimiento\n");
