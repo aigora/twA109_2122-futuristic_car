@@ -1,9 +1,1 @@
-﻿  Source.cpp
-C:\Users\Admin\OneDrive - Universidad Politécnica de Madrid\Documentos\GitHub\twA109_2122-futuristic_car\Proyecto\Trabajo_Informatica_A109\Source.cpp(394,34): warning C4244: 'argumento': conversión de 'float' a 'DWORD'; posible pérdida de datos
-C:\Users\Admin\OneDrive - Universidad Politécnica de Madrid\Documentos\GitHub\twA109_2122-futuristic_car\Proyecto\Trabajo_Informatica_A109\Source.cpp(428,34): warning C4244: 'argumento': conversión de 'float' a 'DWORD'; posible pérdida de datos
-C:\Users\Admin\OneDrive - Universidad Politécnica de Madrid\Documentos\GitHub\twA109_2122-futuristic_car\Proyecto\Trabajo_Informatica_A109\Source.cpp(461,34): warning C4244: 'argumento': conversión de 'float' a 'DWORD'; posible pérdida de datos
-C:\Users\Admin\OneDrive - Universidad Politécnica de Madrid\Documentos\GitHub\twA109_2122-futuristic_car\Proyecto\Trabajo_Informatica_A109\Source.cpp(599,66): warning C4267: 'argumento': conversión de 'size_t' a 'unsigned int'; posible pérdida de datos
-C:\Users\Admin\OneDrive - Universidad Politécnica de Madrid\Documentos\GitHub\twA109_2122-futuristic_car\Proyecto\Trabajo_Informatica_A109\Source.cpp(636,24): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  SerialClass.cpp
-  Generando código...
-  Trabajo_Informatica_A109.vcxproj -> C:\Users\Admin\OneDrive - Universidad Politécnica de Madrid\Documentos\GitHub\twA109_2122-futuristic_car\Proyecto\Trabajo_Informatica_A109\x64\Debug\Trabajo_Informatica_A109.exe
+﻿  Trabajo_Informatica_A109.vcxproj -> C:\Users\Admin\OneDrive - Universidad Politécnica de Madrid\Documentos\GitHub\twA109_2122-futuristic_car\Proyecto\Trabajo_Informatica_A109\x64\Debug\Trabajo_Informatica_A109.exe
