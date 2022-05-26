@@ -112,17 +112,7 @@ if( Serial.available()> 0){
   Serial.print(celsius);
   Serial.print("C\n");
   delay(2500);*/
-  ////**SERVO**////
-   for (pos = 0; pos <= 180; pos += 1) 
-   {
-      servo.write(pos);              
-      delay(17);                       
-   }
-    for (pos = 0; pos <= 180; pos += 1) 
-   {
-      servo.write(pos);              
-      delay(17);                       
-   }
+ 
    
 ////**LDR y LEDS**////
 //int ilum=analogRead(pinLDR); //originalmente esta variable estaba aquí pero la he puesto arriba para que funcione la parte de comunicación
