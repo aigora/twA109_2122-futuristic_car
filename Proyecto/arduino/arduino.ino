@@ -112,7 +112,7 @@ if( Serial.available()> 0){
    
 ////**LDR y LEDS**////
 //int ilum=analogRead(pinLDR); //originalmente esta variable estaba aquí pero la he puesto arriba para que funcione la parte de comunicación
-//Serial.println("Iluminacion:  ");//para ver en el programa de arduino los datos
+//Serial.println("Iluminacion:  ");//para ver en el monitor serial de arduino los datos
 //Serial.println(ilum);  
   delay(500);
   if(ilum<300){//para el led
@@ -124,7 +124,7 @@ if( Serial.available()> 0){
   }
 ////**ULTRASON**////
 //int cm = ping(TriggerPin, EchoPin); //originalmente esta variable estaba aquí pero la he puesto arriba para que funcione la parte de comunicación
-//Serial.println("Distancia:  ");//para ver en el programa de arduino los datos
+//Serial.println("Distancia:  ");//para ver en el monitor serial de arduino los datos
 //Serial.println(cm);
 delay(500);
 
