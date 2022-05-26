@@ -16,8 +16,7 @@ float C = 6.954079529e-8;
 float K = 2.5; //factor de disipacion en mW/C
 int ping(int , int ) ;
  
-void setup() {
-servo.attach(11); 
+void setup() { 
 Serial.begin(9600);
 pinMode (TriggerPin, OUTPUT); 
 pinMode (EchoPin, INPUT);
