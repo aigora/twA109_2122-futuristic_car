@@ -1,7 +1,7 @@
 const int EchoPin = 8;
 const int TriggerPin = 9; 
 const int pinLDR=A0;
-const int SensorPIN = A1;
+const int SensorPIN = A1;//pin del termistor
 const int pinIN4=11;
 const int pinIN3=12;
 const int pinIN1=10;
